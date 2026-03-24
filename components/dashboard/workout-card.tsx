@@ -11,11 +11,13 @@ import { Loader2 } from 'lucide-react';
 export default function WorkoutCard({ workout, onDelete }: { workout: any; onDelete?: () => void }) {
   const [deleting, setDeleting] = useState(false);
   const formattedDate = format(new Date(workout.completed_at || workout.date), 'MMM d, yyyy');
-  const intensityConfig = {
+  const intensityMap: Record<string, { color: string; bg: string; label: string }> = {
     low: { color: 'text-blue-400', bg: 'bg-blue-500/20', label: 'Low' },
     medium: { color: 'text-[#FFD60A]', bg: 'bg-[#FFD60A]/20', label: 'Medium' },
     high: { color: 'text-[#FF6B35]', bg: 'bg-[#FF6B35]/20', label: 'High' },
-  }[workout.intensity?.toLowerCase() || 'medium'] || { color: 'text-[#FFD60A]', bg: 'bg-[#FFD60A]/20', label: 'Medium' };
+  };
+  const key = workout.intensity?.toLowerCase() || 'medium';
+  const intensityConfig = intensityMap[key] || intensityMap['medium'];
 
   const handleDelete = async () => {
     if (!confirm('Are you sure you want to delete this workout?')) return;

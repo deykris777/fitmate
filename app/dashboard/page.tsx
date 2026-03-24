@@ -14,9 +14,9 @@ import { Loader2 } from 'lucide-react';
 export default function DashboardPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
-  const [profile, setProfile] = useState(null);
-  const [workouts, setWorkouts] = useState([]);
-  const [dietLogs, setDietLogs] = useState([]);
+  const [profile, setProfile] = useState<any>(null);
+  const [workouts, setWorkouts] = useState<any[]>([]);
+  const [dietLogs, setDietLogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

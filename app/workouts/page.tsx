@@ -16,7 +16,7 @@ import { Loader2, Plus } from 'lucide-react';
 export default function WorkoutsPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
-  const [workouts, setWorkouts] = useState([]);
+  const [workouts, setWorkouts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     exercise_name: '',
