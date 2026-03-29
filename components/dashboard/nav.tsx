@@ -22,6 +22,9 @@ export default function DashboardNav({ user }: { user: User }) {
     { label: 'Dashboard', href: '/dashboard', icon: Dumbbell },
     { label: 'Workouts', href: '/workouts', icon: Dumbbell },
     { label: 'Routines', href: '/routines', icon: Dumbbell },
+    { label: 'Analytics', href: '/analytics', icon: Dumbbell },
+    { label: 'Planner', href: '/planner', icon: Dumbbell },
+    { label: 'Visualizer', href: '/visualizer', icon: Dumbbell },
     { label: 'Chat', href: '/chat', icon: MessageCircle },
   ];
 
@@ -48,7 +51,7 @@ export default function DashboardNav({ user }: { user: User }) {
 
           {/* User Menu */}
           <div className="hidden md:flex items-center gap-4">
-            <span className="text-xs font-medium text-muted-foreground">{user.email}</span>
+            <span className="text-xs font-medium text-muted-foreground">{user?.email}</span>
             <Button
               onClick={handleSignOut}
               variant="ghost"
@@ -61,7 +64,7 @@ export default function DashboardNav({ user }: { user: User }) {
 
           {/* User Menu */}
           <div className="hidden md:flex items-center gap-3">
-            <span className="text-sm text-muted-foreground">{user.email}</span>
+            <span className="text-sm text-muted-foreground">{user?.email}</span>
             <Button
               onClick={handleSignOut}
               variant="ghost"
@@ -99,7 +102,7 @@ export default function DashboardNav({ user }: { user: User }) {
               </Link>
             ))}
             <div className="border-t border-primary/20 pt-4 mt-4">
-              <p className="text-xs text-muted-foreground px-3 mb-2">{user.email}</p>
+              <p className="text-xs text-muted-foreground px-3 mb-2">{user?.email}</p>
               <Button
                 onClick={handleSignOut}
                 variant="ghost"

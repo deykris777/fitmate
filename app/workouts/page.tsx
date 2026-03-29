@@ -5,13 +5,29 @@ import React from "react"
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
-import { addWorkout, getWorkoutHistory } from '@/lib/database';
+import { addWorkout, getWorkoutHistory, updateWorkoutStreak } from '@/lib/database';
 import DashboardNav from '@/components/dashboard/nav';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import WorkoutCard from '@/components/dashboard/workout-card';
 import { Loader2, Plus } from 'lucide-react';
+
+const COMMON_EXERCISES = [
+  "Push-ups",
+  "Pull-ups",
+  "Squats",
+  "Deadlifts",
+  "Bench Press",
+  "Overhead Press",
+  "Barbell Rows",
+  "Lunges",
+  "Plank",
+  "Bicep Curls",
+  "Tricep Extensions",
+  "Leg Press",
+  "Lat Pulldown"
+];
 
 export default function WorkoutsPage() {
   const router = useRouter();
@@ -68,6 +84,9 @@ export default function WorkoutsPage() {
         notes: formData.notes || null,
         sets: formData.sets ? parseInt(formData.sets) : null,
       });
+
+      await updateWorkoutStreak(user!.id).catch(console.error);
+
       setFormData({
         exercise_name: '',
         duration: '',
@@ -111,12 +130,18 @@ export default function WorkoutsPage() {
                 <label className="text-sm font-medium text-foreground block mb-2">Exercise Name</label>
                 <Input
                   type="text"
+                  list="exercise-suggestions"
                   placeholder="e.g., Push-ups"
                   value={formData.exercise_name}
                   onChange={(e) => setFormData({ ...formData, exercise_name: e.target.value })}
                   required
                   className="bg-secondary/50 border-primary/20"
                 />
+                <datalist id="exercise-suggestions">
+                  {COMMON_EXERCISES.map((exercise) => (
+                    <option key={exercise} value={exercise} />
+                  ))}
+                </datalist>
               </div>
 
               <div className="grid grid-cols-2 gap-2">

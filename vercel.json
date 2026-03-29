@@ -3,6 +3,14 @@
     {
       "path": "/api/cron/reset-diet",
       "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/generate-weekly-plans",
+      "schedule": "0 6 * * 1"
+    },
+    {
+      "path": "/api/cron/reset-water",
+      "schedule": "0 0 * * *"
     }
   ]
 }

@@ -42,6 +42,14 @@ export default function SignupPage() {
 
     try {
       const authData = await signUp(formData.email, formData.password, formData.fullName);
+      
+      // If email confirmation is required, session will be null
+      if (!authData.session) {
+        setError('Signup successful! Please check your email to verify your account.');
+        setLoading(false);
+        return;
+      }
+
       if (authData.user) {
         try {
           await createProfile(authData.user.id, formData.email, formData.fullName);
@@ -56,7 +64,7 @@ export default function SignupPage() {
       setError(err.message || 'Failed to sign up');
       console.error('[v0] Signup error:', err);
     } finally {
-      setLoading(false);
+      if (loading) setLoading(false);
     }
   };
 

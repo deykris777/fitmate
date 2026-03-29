@@ -124,3 +124,61 @@ CREATE INDEX IF NOT EXISTS idx_workouts_completed_at ON workouts(completed_at);
 CREATE INDEX IF NOT EXISTS idx_diet_entries_user_id ON diet_entries(user_id);
 CREATE INDEX IF NOT EXISTS idx_diet_entries_logged_date ON diet_entries(logged_date);
 CREATE INDEX IF NOT EXISTS idx_chat_messages_user_id ON chat_messages(user_id);
+
+/*
+CREATE TABLE IF NOT EXISTS user_streaks (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  workout_streak integer DEFAULT 0,
+  diet_streak integer DEFAULT 0,
+  longest_workout_streak integer DEFAULT 0,
+  longest_diet_streak integer DEFAULT 0,
+  last_workout_date date,
+  last_diet_date date,
+  updated_at timestamp with time zone DEFAULT now(),
+  UNIQUE(user_id)
+);
+ALTER TABLE user_streaks ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can manage their own streaks" ON user_streaks FOR ALL USING (auth.uid() = user_id);
+*/
+
+-- Create weekly_plans table
+CREATE TABLE IF NOT EXISTS weekly_plans (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  week_start date NOT NULL,
+  plan jsonb NOT NULL,
+  generated_at timestamp with time zone DEFAULT now(),
+  UNIQUE(user_id, week_start)
+);
+
+ALTER TABLE weekly_plans ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can manage their own plans" ON weekly_plans FOR ALL USING (auth.uid() = user_id);
+
+-- Body Visualization Features
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS height_cm numeric;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS weight_kg numeric;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS body_type text DEFAULT 'average';
+
+CREATE TABLE IF NOT EXISTS body_visualizations (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  image_url text NOT NULL,
+  prompt_used text,
+  generated_at timestamp with time zone DEFAULT now()
+);
+
+ALTER TABLE body_visualizations ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can manage their own visualizations" ON body_visualizations FOR ALL USING (auth.uid() = user_id);
+
+-- Water Intake Tracking
+CREATE TABLE IF NOT EXISTS water_logs (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  glasses integer NOT NULL DEFAULT 0,
+  logged_date date NOT NULL,
+  updated_at timestamp with time zone DEFAULT now(),
+  UNIQUE(user_id, logged_date)
+);
+ALTER TABLE water_logs ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can manage their own water logs" ON water_logs FOR ALL USING (auth.uid() = user_id);

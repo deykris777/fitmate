@@ -39,7 +39,7 @@ export default function ChatPage() {
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || loading || streaming) return;
+    if (!input.trim() || loading || streaming || !user) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -63,6 +63,7 @@ export default function ChatPage() {
             role: m.role,
             content: m.content,
           })),
+          userId: user.id
         }),
       });
 
@@ -93,18 +94,7 @@ export default function ChatPage() {
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        // AI SDK data stream format: lines like '0:"text chunk"\n'
-        const lines = chunk.split('\n');
-        for (const line of lines) {
-          if (line.startsWith('0:')) {
-            try {
-              const text = JSON.parse(line.slice(2));
-              fullContent += text;
-            } catch {
-              // not valid JSON, skip
-            }
-          }
-        }
+        fullContent += chunk;
 
         setMessages((prev) => [
           ...prev.slice(0, -1),
@@ -200,7 +190,21 @@ export default function ChatPage() {
             <div ref={messagesEndRef} />
           </div>
 
-          <form onSubmit={handleSendMessage} className="flex gap-3 mt-auto bg-secondary/40 border border-border/50 rounded-xl p-3">
+          <div className="flex flex-wrap gap-2 mb-3 mt-auto">
+            {['Build a 3-day workout plan', 'Calculate my macros', 'How can I fix my squat form?', 'Tips for muscle recovery'].map((q) => (
+              <button
+                key={q}
+                type="button"
+                onClick={() => setInput(q)}
+                className="text-xs bg-secondary hover:bg-primary/20 hover:text-primary hover:border-primary/50 text-foreground px-3 py-1.5 rounded-full border border-border/50 transition-all cursor-pointer"
+                disabled={loading || streaming}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+
+          <form onSubmit={handleSendMessage} className="flex gap-3 bg-secondary/40 border border-border/50 rounded-xl p-3">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}

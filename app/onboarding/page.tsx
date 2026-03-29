@@ -15,16 +15,40 @@ export default function OnboardingPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [hasProfile, setHasProfile] = useState(false);
   const [formData, setFormData] = useState({
-    height: '',
-    weight: '',
-    fitness_goal: 'muscle_gain',
-    experience_level: 'beginner',
+    height_cm: '',
+    weight_kg: '',
+    goal: 'muscle_gain',
+    fitness_level: 'beginner',
   });
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      router.push('/login');
+    async function fetchProfile() {
+      if (!user) return;
+      try {
+        const { getUserProfile } = await import('@/lib/database');
+        const data = await getUserProfile(user.id);
+        if (data && (data.height_cm || data.goal)) {
+          setFormData({
+            height_cm: data.height_cm || '',
+            weight_kg: data.weight_kg || '',
+            goal: data.goal || 'muscle_gain',
+            fitness_level: data.fitness_level || 'beginner',
+          });
+          setHasProfile(true);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    if (!authLoading) {
+      if (!user) {
+        router.push('/login');
+      } else {
+        fetchProfile();
+      }
     }
   }, [user, authLoading, router]);
 
@@ -56,8 +80,12 @@ export default function OnboardingPage() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-background animate-fade-in">
       <Card className="w-full max-w-md glass-effect border-primary/30">
         <div className="p-8">
-          <h1 className="text-3xl font-bold gradient-text mb-2">Welcome!</h1>
-          <p className="text-muted-foreground mb-6">Let's set up your fitness profile</p>
+          <h1 className="text-3xl font-bold gradient-text mb-2">
+            {hasProfile ? 'Edit Profile' : 'Welcome!'}
+          </h1>
+          <p className="text-muted-foreground mb-6">
+            {hasProfile ? 'Update your fitness statistics and goals' : "Let's set up your fitness profile"}
+          </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -65,8 +93,8 @@ export default function OnboardingPage() {
               <Input
                 type="number"
                 placeholder="170"
-                value={formData.height}
-                onChange={(e) => setFormData({ ...formData, height: e.target.value })}
+                value={formData.height_cm}
+                onChange={(e) => setFormData({ ...formData, height_cm: e.target.value })}
                 required
                 className="bg-secondary/50 border-primary/20 text-foreground"
               />
@@ -77,8 +105,8 @@ export default function OnboardingPage() {
               <Input
                 type="number"
                 placeholder="75"
-                value={formData.weight}
-                onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
+                value={formData.weight_kg}
+                onChange={(e) => setFormData({ ...formData, weight_kg: e.target.value })}
                 required
                 className="bg-secondary/50 border-primary/20 text-foreground"
               />
@@ -87,8 +115,8 @@ export default function OnboardingPage() {
             <div>
               <label className="text-sm font-medium text-foreground block mb-2">Fitness Goal</label>
               <select
-                value={formData.fitness_goal}
-                onChange={(e) => setFormData({ ...formData, fitness_goal: e.target.value })}
+                value={formData.goal}
+                onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
                 className="w-full bg-secondary/50 border border-primary/20 rounded-md px-3 py-2 text-foreground"
               >
                 <option value="weight_loss">Weight Loss</option>
@@ -104,8 +132,8 @@ export default function OnboardingPage() {
                 Experience Level
               </label>
               <select
-                value={formData.experience_level}
-                onChange={(e) => setFormData({ ...formData, experience_level: e.target.value })}
+                value={formData.fitness_level}
+                onChange={(e) => setFormData({ ...formData, fitness_level: e.target.value })}
                 className="w-full bg-secondary/50 border border-primary/20 rounded-md px-3 py-2 text-foreground"
               >
                 <option value="beginner">Beginner</option>
@@ -126,7 +154,7 @@ export default function OnboardingPage() {
                   Setting up...
                 </>
               ) : (
-                'Complete Setup'
+                hasProfile ? 'Save Changes' : 'Complete Setup'
               )}
             </Button>
           </form>

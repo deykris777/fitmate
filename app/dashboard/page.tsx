@@ -3,12 +3,14 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
-import { getTodayDiet, getWorkoutHistory, getUserProfile } from '@/lib/database';
+import { getTodayDiet, getWorkoutHistory, getUserProfile, getOrCreateStreak } from '@/lib/database';
 import DashboardHeader from '@/components/dashboard/header';
 import DashboardNav from '@/components/dashboard/nav';
 import WorkoutCard from '@/components/dashboard/workout-card';
 import DietSummary from '@/components/dashboard/diet-summary';
 import QuickStats from '@/components/dashboard/quick-stats';
+import StreakCard from '@/components/dashboard/streak-card';
+import WaterTracker from '@/components/dashboard/water-tracker';
 import { Loader2 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -18,6 +20,7 @@ export default function DashboardPage() {
   const [workouts, setWorkouts] = useState<any[]>([]);
   const [dietLogs, setDietLogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [streakData, setStreakData] = useState<any>(null);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -33,14 +36,16 @@ export default function DashboardPage() {
 
   const loadDashboardData = async () => {
     try {
-      const [profileData, workoutsData, dietData] = await Promise.all([
+      const [profileData, workoutsData, dietData, streak] = await Promise.all([
         getUserProfile(user!.id).catch(() => null),
         getWorkoutHistory(user!.id).catch(() => []),
         getTodayDiet(user!.id).catch(() => []),
+        getOrCreateStreak(user!.id).catch(() => null),
       ]);
       setProfile(profileData);
       setWorkouts(workoutsData || []);
       setDietLogs(dietData || []);
+      setStreakData(streak);
     } catch (error) {
       console.error('[v0] Failed to load dashboard data:', error);
     } finally {
@@ -82,7 +87,19 @@ export default function DashboardPage() {
 
           <div className="animate-slide-in-right">
             <DietSummary dietLogs={dietLogs} onRefresh={loadDashboardData} />
+            <WaterTracker />
           </div>
+        </div>
+
+        <div className="mt-6 animate-fade-in">
+          {streakData && (
+            <StreakCard
+              workoutStreak={streakData.workout_streak ?? 0}
+              dietStreak={streakData.diet_streak ?? 0}
+              longestWorkout={streakData.longest_workout_streak ?? 0}
+              longestDiet={streakData.longest_diet_streak ?? 0}
+            />
+          )}
         </div>
       </main>
     </div>
