@@ -1,8 +1,11 @@
 import { getSupabaseClient } from './supabase-client';
 
-const supabase = getSupabaseClient();
+// NOTE: Each function calls getSupabaseClient() locally.
+// This ensures Supabase is never initialized at module import time,
+// which would crash client-side components that import this file.
 
 export async function getUserProfile(userId: string) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('profiles')
     .select('*')
@@ -36,6 +39,7 @@ export async function getUserProfile(userId: string) {
 }
 
 export async function updateUserProfile(userId: string, updates: any) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('profiles')
     .update(updates)
@@ -48,6 +52,7 @@ export async function updateUserProfile(userId: string, updates: any) {
 }
 
 export async function getTodayDiet(userId: string) {
+  const supabase = getSupabaseClient();
   const today = new Date().toISOString().split('T')[0];
   const { data, error } = await supabase
     .from('diet_entries')
@@ -60,6 +65,7 @@ export async function getTodayDiet(userId: string) {
 }
 
 export async function addDietEntry(userId: string, entry: any) {
+  const supabase = getSupabaseClient();
   const today = new Date().toISOString().split('T')[0];
   
   // Ensure user profile exists before adding diet entry
@@ -87,6 +93,7 @@ export async function addDietEntry(userId: string, entry: any) {
 }
 
 export async function getWorkoutHistory(userId: string, limit = 10) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('workouts')
     .select('*')
@@ -99,6 +106,7 @@ export async function getWorkoutHistory(userId: string, limit = 10) {
 }
 
 export async function addWorkout(userId: string, workout: any) {
+  const supabase = getSupabaseClient();
   // Ensure user profile exists
   await getUserProfile(userId);
 
@@ -121,6 +129,7 @@ export async function addWorkout(userId: string, workout: any) {
 }
 
 export async function getExerciseRoutines() {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('exercise_routines')
     .select('*')
@@ -131,6 +140,7 @@ export async function getExerciseRoutines() {
 }
 
 export async function getExerciseRoutineById(id: string) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('exercise_routines')
     .select('*')
@@ -142,6 +152,7 @@ export async function getExerciseRoutineById(id: string) {
 }
 
 export async function saveChatMessage(userId: string, message: any) {
+  const supabase = getSupabaseClient();
   await getUserProfile(userId);
 
   const { data, error } = await supabase
@@ -160,6 +171,7 @@ export async function saveChatMessage(userId: string, message: any) {
 }
 
 export async function getChatHistory(userId: string) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('chat_messages')
     .select('*')
@@ -173,6 +185,7 @@ export async function getChatHistory(userId: string) {
 
 // Delete functions
 export async function deleteWorkout(workoutId: string) {
+  const supabase = getSupabaseClient();
   const { error } = await supabase
     .from('workouts')
     .delete()
@@ -182,6 +195,7 @@ export async function deleteWorkout(workoutId: string) {
 }
 
 export async function deleteDietEntry(entryId: string) {
+  const supabase = getSupabaseClient();
   const { error } = await supabase
     .from('diet_entries')
     .delete()
@@ -192,6 +206,7 @@ export async function deleteDietEntry(entryId: string) {
 
 // Update functions
 export async function updateWorkout(workoutId: string, updates: any) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('workouts')
     .update(updates)
@@ -204,6 +219,7 @@ export async function updateWorkout(workoutId: string, updates: any) {
 }
 
 export async function updateDietEntry(entryId: string, updates: any) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('diet_entries')
     .update(updates)
@@ -216,6 +232,7 @@ export async function updateDietEntry(entryId: string, updates: any) {
 }
 
 export async function getLast30DaysCalories(userId: string) {
+  const supabase = getSupabaseClient();
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
   const dateString = thirtyDaysAgo.toISOString().split('T')[0];
@@ -245,6 +262,7 @@ export async function getLast30DaysCalories(userId: string) {
 }
 
 export async function getLast30DaysWorkouts(userId: string) {
+  const supabase = getSupabaseClient();
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
   const dateString = thirtyDaysAgo.toISOString().split('T')[0];
@@ -277,6 +295,7 @@ export async function getLast30DaysWorkouts(userId: string) {
 }
 
 export async function getAllTimeWorkoutDates(userId: string) {
+  const supabase = getSupabaseClient();
   const aYearAgo = new Date();
   aYearAgo.setDate(aYearAgo.getDate() - 365);
   const dateString = aYearAgo.toISOString().split('T')[0];
@@ -294,6 +313,7 @@ export async function getAllTimeWorkoutDates(userId: string) {
 }
 
 export async function getOrCreateStreak(userId: string) {
+  const supabase = getSupabaseClient();
   const { data: existing, error: fetchErr } = await supabase
     .from('user_streaks')
     .select('*')
@@ -315,6 +335,7 @@ export async function getOrCreateStreak(userId: string) {
 }
 
 export async function updateWorkoutStreak(userId: string) {
+  const supabase = getSupabaseClient();
   const today = new Date().toISOString().split('T')[0];
   const streak = await getOrCreateStreak(userId);
 
@@ -350,6 +371,7 @@ export async function updateWorkoutStreak(userId: string) {
 }
 
 export async function updateDietStreak(userId: string) {
+  const supabase = getSupabaseClient();
   const today = new Date().toISOString().split('T')[0];
   
   // Verify they logged today
@@ -396,6 +418,7 @@ export async function updateDietStreak(userId: string) {
 }
 
 export async function getCurrentWeekPlan(userId: string) {
+  const supabase = getSupabaseClient();
   const now = new Date();
   const day = now.getDay();
   // Get Monday of current week
@@ -415,6 +438,7 @@ export async function getCurrentWeekPlan(userId: string) {
 }
 
 export async function saveWeeklyPlan(userId: string, plan: object) {
+  const supabase = getSupabaseClient();
   await getUserProfile(userId);
   
   const now = new Date();
@@ -437,6 +461,7 @@ export async function saveWeeklyPlan(userId: string, plan: object) {
 }
 
 export async function getRecentWorkoutSummary(userId: string) {
+  const supabase = getSupabaseClient();
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
   const dateString = sevenDaysAgo.toISOString().split('T')[0];
@@ -452,6 +477,7 @@ export async function getRecentWorkoutSummary(userId: string) {
 }
 
 export async function getLatestVisualization(userId: string) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('body_visualizations')
     .select('*')
@@ -465,6 +491,7 @@ export async function getLatestVisualization(userId: string) {
 }
 
 export async function saveVisualization(userId: string, imageUrl: string, promptUsed: string) {
+  const supabase = getSupabaseClient();
   await getUserProfile(userId);
 
   const { data, error } = await supabase
@@ -478,6 +505,7 @@ export async function saveVisualization(userId: string, imageUrl: string, prompt
 }
 
 export async function getDietConsistency(userId: string) {
+  const supabase = getSupabaseClient();
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
   const dateString = thirtyDaysAgo.toISOString().split('T')[0];
@@ -498,6 +526,7 @@ export async function getDietConsistency(userId: string) {
 }
 
 export async function getTodayWater(userId: string) {
+  const supabase = getSupabaseClient();
   const today = new Date().toISOString().split('T')[0];
   const { data, error } = await supabase
     .from('water_logs')
@@ -511,6 +540,7 @@ export async function getTodayWater(userId: string) {
 }
 
 export async function incrementWater(userId: string) {
+  const supabase = getSupabaseClient();
   const today = new Date().toISOString().split('T')[0];
   const current = await getTodayWater(userId);
   const newGlasses = (current?.glasses || 0) + 1;
@@ -533,6 +563,7 @@ export async function incrementWater(userId: string) {
 }
 
 export async function decrementWater(userId: string) {
+  const supabase = getSupabaseClient();
   const today = new Date().toISOString().split('T')[0];
   const current = await getTodayWater(userId);
   
