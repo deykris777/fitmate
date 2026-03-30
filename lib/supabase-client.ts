@@ -1,10 +1,12 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 // Lazy singleton — only created on first use (at request time, not build time).
-// This prevents "supabaseUrl is required" errors during Next.js static analysis.
+// Avoids "supabaseUrl is required" errors during Next.js static build analysis.
+// NOTE: We export a getter function instead of a Proxy to prevent infinite
+// recursion when React inspects exported module bindings during SSR/client hydration.
 let _supabase: SupabaseClient | null = null;
 
-function getSupabaseClient(): SupabaseClient {
+export function getSupabaseClient(): SupabaseClient {
   if (!_supabase) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -16,14 +18,8 @@ function getSupabaseClient(): SupabaseClient {
   return _supabase;
 }
 
-// Proxy object so existing `supabase.xxx` call sites work without any changes.
-export const supabase = new Proxy({} as SupabaseClient, {
-  get(_target, prop) {
-    return (getSupabaseClient() as any)[prop];
-  },
-});
-
 export async function signUp(email: string, password: string, fullName: string) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -39,6 +35,7 @@ export async function signUp(email: string, password: string, fullName: string) 
 }
 
 export async function signIn(email: string, password: string) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -49,16 +46,19 @@ export async function signIn(email: string, password: string) {
 }
 
 export async function signOut() {
+  const supabase = getSupabaseClient();
   const { error } = await supabase.auth.signOut();
   if (error) throw error;
 }
 
 export async function getCurrentUser() {
+  const supabase = getSupabaseClient();
   const { data: { user } } = await supabase.auth.getUser();
   return user;
 }
 
 export async function resetPassword(email: string) {
+  const supabase = getSupabaseClient();
   const { error } = await supabase.auth.resetPasswordForEmail(email);
   if (error) throw error;
 }
@@ -69,6 +69,7 @@ export async function createProfile(
   fullName: string,
   fitnessLevel = 'beginner'
 ) {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from('profiles')
     .insert([
@@ -85,3 +86,4 @@ export async function createProfile(
   if (error) throw error;
   return data;
 }
+

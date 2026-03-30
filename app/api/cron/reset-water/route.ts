@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase-client';
+import { getSupabaseClient } from '@/lib/supabase-client';
 
 export const maxDuration = 60;
 
@@ -17,6 +17,7 @@ export async function GET(req: Request) {
     const yesterdayStr = yesterday.toISOString().split('T')[0];
 
     // set glasses = 0 where logged_date = yesterday
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('water_logs')
       .update({ glasses: 0 })

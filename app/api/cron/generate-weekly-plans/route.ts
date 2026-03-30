@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase-client';
+import { getSupabaseClient } from '@/lib/supabase-client';
 
 export async function GET(request: Request) {
   // Check authorization headers to verify it's the cron service
@@ -10,6 +10,7 @@ export async function GET(request: Request) {
 
   try {
     // 1. Get all users
+    const supabase = getSupabaseClient();
     const { data: users, error } = await supabase
       .from('profiles')
       .select('id');

@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase-client';
+import { getSupabaseClient } from '@/lib/supabase-client';
 
 export const maxDuration = 60;
 
@@ -14,6 +14,7 @@ export async function GET(req: Request) {
 
   try {
     // Get all users (you might want to limit this to active users)
+    const supabase = getSupabaseClient();
     const { data: users } = await supabase
       .from('user_profiles')
       .select('id')

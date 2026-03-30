@@ -1,4 +1,6 @@
-import { supabase } from './supabase-client';
+import { getSupabaseClient } from './supabase-client';
+
+const supabase = getSupabaseClient();
 
 export async function getUserProfile(userId: string) {
   const { data, error } = await supabase

@@ -1,12 +1,13 @@
 'use server';
 
-import { supabase } from '@/lib/supabase-client';
+import { getSupabaseClient } from '@/lib/supabase-client';
 
 export async function resetDailyDiet(userId: string) {
   try {
     // This function would be called by a cron job at midnight
     // It could archive previous day's diet data if needed
     const today = new Date().toISOString().split('T')[0];
+    const supabase = getSupabaseClient();
     
     // Verify the user exists
     const { data: profile } = await supabase
@@ -33,6 +34,7 @@ export async function resetDailyDiet(userId: string) {
 export async function getTodaysDietStats(userId: string) {
   try {
     const today = new Date().toISOString().split('T')[0];
+    const supabase = getSupabaseClient();
     
     const { data: dietLogs, error } = await supabase
       .from('diet_logs')
