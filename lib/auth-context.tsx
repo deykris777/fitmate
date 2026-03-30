@@ -4,7 +4,7 @@ import React from "react"
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '@supabase/supabase-js';
-import { supabase } from './supabase-client';
+import { getSupabaseClient } from './supabase-client';
 
 interface AuthContextType {
   user: User | null;
@@ -20,6 +20,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let mounted = true;
+    const supabase = getSupabaseClient();
 
     const initAuth = async () => {
       try {
@@ -57,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const handleSignOut = async () => {
     try {
-      await supabase.auth.signOut();
+      await getSupabaseClient().auth.signOut();
       setUser(null);
     } catch (err) {
       console.error('[v0] Sign out error:', err);
