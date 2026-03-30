@@ -1,368 +1,330 @@
-# FitMate - AI-Powered Fitness Companion Platform
+<div align="center">
 
-> Your personal AI fitness coach, workout tracker, and nutrition manager in one beautiful, dark-themed application.
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,50:7c3aed,100:0f172a&height=200&section=header&text=FitMate&fontSize=72&fontColor=ffffff&fontAlignY=38&desc=AI-Powered%20Personal%20Fitness%20Companion&descAlignY=60&descSize=22&animation=fadeIn" width="100%" />
 
-![FitMate Banner](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
-![Supabase](https://img.shields.io/badge/Supabase-DB-green?style=for-the-badge&logo=supabase)
-![OpenAI](https://img.shields.io/badge/OpenAI-API-blue?style=for-the-badge&logo=openai)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
+<br/>
 
-## ✨ Features
+[![Next.js](https://img.shields.io/badge/Next.js%2015-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React%2019-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS%204-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Groq](https://img.shields.io/badge/Groq%20AI-F55036?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com/)
+[![Replicate](https://img.shields.io/badge/Replicate-000000?style=for-the-badge&logo=replicate&logoColor=white)](https://replicate.com/)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
-### 🏋️ Workout Tracking
-- **Log Exercises** - Record workouts with duration, intensity, calories, sets
-- **Workout History** - View all past workouts with filtering
-- **Progress Stats** - Track total workout time and frequency
-- **Intensity Levels** - Low, Medium, High classifications
+<br/>
 
-### 🥗 Nutrition Management
-- **Daily Diet Logging** - Add meals and track calories
-- **Calorie Counter** - Real-time progress toward daily goal (2000 cal)
-- **Visual Progress** - Animated progress bar
-- **Automatic Reset** - Daily reset at midnight via cron job
-- **Meal History** - See what you've logged today
+> **FitMate** is a modern, full-stack AI fitness coaching platform that unifies workout tracking, nutrition logging, progress analytics, and generative AI into one beautifully designed experience. Stop juggling spreadsheets and generic apps — FitMate adapts to *you*.
 
-### 🤖 AI Fitness Coach
-- **24/7 Availability** - Get advice anytime
-- **Real-time Streaming** - Stream responses for instant feedback
-- **Personalized Guidance** - Workout form, nutrition, recovery
-- **Chat History** - Access past conversations
-- **Expert System Prompt** - Trained on fitness expertise
+<br/>
 
-### 📚 Exercise Routines
-- **6 Pre-built Routines** - From Beginner to Advanced
-- **Routine Templates** - 
-  - Beginner Strength (3 days/week)
-  - Intermediate Hypertrophy (4 days/week)
-  - Advanced Periodized (5 days/week)
-  - Cardio & Endurance (4 days/week)
-  - Flexibility & Mobility (5 days/week)
-  - CrossFit Style WOD (5 days/week)
-- **Copy to Clipboard** - Easy routine sharing
-- **Level-based Search** - Find routines for your level
+[🚀 Live Demo](#) &nbsp;|&nbsp; [📖 Quickstart](#-local-setup--installation) &nbsp;|&nbsp; [🐛 Report a Bug](https://github.com/deykris777/fitmate/issues) &nbsp;|&nbsp; [💡 Request a Feature](https://github.com/deykris777/fitmate/issues)
 
-### 👤 User Profiles
-- **Onboarding Setup** - Height, weight, fitness goal, experience level
-- **Profile Management** - Update fitness information
-- **Personalized Dashboard** - Your stats and recent activity
-- **Secure Authentication** - Email/password via Supabase
+</div>
 
-### 🎨 Dark Purple Theme
-- **Beautiful Aesthetics** - Dark purple color scheme
-- **Smooth Animations** - Fade-in, slide, glow, bounce effects
-- **Glass Morphism** - Modern frosted glass UI effects
-- **Responsive Design** - Works perfectly on mobile and desktop
-- **Gradient Text** - Eye-catching headings
+---
 
-### 🔐 Security & Privacy
-- **Row Level Security** - Each user sees only their data
-- **Secure Authentication** - Industry-standard auth
-- **Data Isolation** - Complete user data privacy
-- **Encrypted Connections** - Secure API endpoints
+## 📋 Table of Contents
 
-## 🚀 Quick Start
+- [✨ Key Features](#-key-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📦 Prerequisites](#-prerequisites)
+- [🔐 Environment Variables](#-environment-variables)
+- [⚡ Local Setup / Installation](#-local-setup--installation)
+- [🗂️ Project Structure](#️-project-structure)
+- [🗄️ Database Schema](#️-database-schema)
+- [🚀 Deployment](#-deployment)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
 
-### Prerequisites
-- Node.js 18+
-- Supabase account (free)
-- Internet connection
+---
 
-### Installation
+## ✨ Key Features
 
-1. **Clone or download the project**
-   ```bash
-   git clone <repository-url>
-   cd fitmate
-   ```
+FitMate combines the power of modern LLMs with a clean, data-driven UI to deliver a fitness experience that genuinely rivals premium apps.
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+### 🤖 AI-Powered Chat Assistant
+A real-time fitness coaching chatbot built on **Groq's ultra-fast inference** and the **Vercel AI SDK**. The assistant streams responses token-by-token for an instant, fluid feel. It understands workout form, nutrition science, recovery strategies, and more — with a graceful **offline fallback mode** so you're never left without guidance.
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Add your Supabase credentials:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=your_url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
-   CRON_SECRET=your_random_secret
-   ```
+### 📅 Adaptive Weekly Workout Planner
+No two users are the same. FitMate uses **Groq's LLM** to generate fully personalized **7-day training plans** grounded in your profile — body metrics (height, weight), fitness goals, experience level, and your *actual recent training history*. Plans are dynamic and regenerate as you progress.
 
-4. **Create database**
-   - Go to Supabase dashboard
-   - Run the SQL from `/scripts/init-database.sql`
-   - Tables are created automatically
+### 🎨 Body Transformation Visualizer
+Powered by the **Replicate SDK**, this feature generates AI-driven fitness illustrations and transformation previews. Users can visualize their body transformation goals, providing powerful motivation backed by generative image AI.
 
-5. **Run locally**
-   ```bash
-   npm run dev
-   ```
+### 🏋️ Smart Workout Tracking
+A hybrid exercise input system lets users log sessions with full flexibility — choose from a curated **preloaded suggestion dropdown** or free-type any custom exercise. Track sets, reps, duration, intensity, and estimated calories burned all in one place.
 
-6. **Visit the app**
-   - Open http://localhost:3000
-   - Sign up and start using FitMate!
+### 💧 Water Intake Tracker
+A delightfully simple daily habit tracker for hydration. Features a **custom Vercel cron job** that automatically resets water intake logs every midnight, ensuring a clean slate each day without any manual action from the user.
 
-For detailed setup, see **[QUICKSTART.md](./QUICKSTART.md)**.
+### 📊 Progress Analytics Dashboard
+Beautiful, interactive dashboards powered by **Recharts** let you visualize your entire fitness journey at a glance. Track weekly volume, diet consistency scores, calorie trends, and workout frequency over time — all rendered in responsive, animated charts.
 
-## 📖 Documentation
+### 🔐 Secure Authentication & Data Isolation
+Full authentication flow via **Supabase Auth** (email/password + JWT sessions). Every database table is protected with **Row-Level Security (RLS)** policies, ensuring each user can only ever access their own data.
 
-- **[QUICKSTART.md](./QUICKSTART.md)** - Get started in 5 minutes
-- **[SETUP.md](./SETUP.md)** - Comprehensive setup guide
-- **[PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md)** - Technical details and architecture
-
-## 📁 Project Structure
-
-```
-fitmate/
-├── app/                          # Next.js app router
-│   ├── api/                      # API routes
-│   │   ├── chat/route.ts         # AI chat endpoint
-│   │   └── cron/reset-diet/      # Daily reset
-│   ├── dashboard/                # Main dashboard
-│   ├── workouts/                 # Workout logging
-│   ├── routines/                 # Exercise library
-│   ├── chat/                     # AI chatbot
-│   ├── login/, signup/           # Auth pages
-│   └── onboarding/               # Profile setup
-├── components/                   # React components
-│   ├── dashboard/                # Dashboard widgets
-│   └── ui/                       # Shadcn components
-├── lib/                          # Utilities
-│   ├── supabase-client.ts        # DB client
-│   ├── database.ts               # DB queries
-│   └── auth-context.tsx          # Auth state
-├── scripts/                      # SQL migrations
-├── public/                       # Static assets
-├── styles/                       # Global styles
-└── config files                  # TypeScript, Tailwind, Next.js
-```
+---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| **Frontend** | Next.js 16, React 19, TypeScript |
-| **Styling** | Tailwind CSS v4, Shadcn/UI |
-| **Backend** | Supabase PostgreSQL, Auth |
-| **AI** | OpenAI API (via Vercel Gateway) |
-| **Deployment** | Vercel (with cron jobs) |
-| **Database** | PostgreSQL with RLS |
+| Category | Technology |
+|---|---|
+| **Framework** | Next.js 15 (App Router), React 19 |
+| **Language** | TypeScript |
+| **Styling** | Tailwind CSS 4, `tailwindcss-animate` |
+| **UI Primitives** | Radix UI (`@radix-ui/react-*`), Shadcn/UI, Embla Carousel |
 | **Icons** | Lucide React |
+| **Database** | Supabase (PostgreSQL) with Row-Level Security |
+| **Authentication** | Supabase Auth (JWT-based) |
+| **AI — Chat & Planner** | Groq API (`groq-sdk`, `@ai-sdk/groq`), Vercel AI SDK (`ai`, `@ai-sdk/react`) |
+| **AI — Visuals** | Replicate API (`replicate`) |
+| **Charts** | Recharts |
+| **Forms & Validation** | `react-hook-form`, `zod` |
+| **Deployment** | Vercel (with Cron Jobs support) |
 
-## 🎯 Key Pages
+---
 
-| Page | Purpose | Route |
-|------|---------|-------|
-| Landing | Marketing & signup | `/` |
-| Login | User authentication | `/login` |
-| Signup | Account creation | `/signup` |
-| Onboarding | Profile setup | `/onboarding` |
-| Dashboard | Home & stats | `/dashboard` |
-| Workouts | Logging & history | `/workouts` |
-| Routines | Exercise templates | `/routines` |
-| Chat | AI coaching | `/chat` |
+## 📦 Prerequisites
 
-## 🔄 Daily Workflow
+Before you begin, make sure you have the following installed and accounts created:
 
-1. **User wakes up** → Visits dashboard
-2. **Sees fresh diet** → Daily reset happened at midnight
-3. **Logs breakfast** → Adds meal to diet tracker
-4. **Does workout** → Logs exercise with details
-5. **Asks AI coach** → Gets form or nutrition tips
-6. **Checks progress** → Views stats and calories
-7. **Browses routines** → Gets ideas for next week
+- **Node.js** `v18.17+` — [Download](https://nodejs.org/)
+- **pnpm** (recommended) or npm/yarn — Install via `npm i -g pnpm`
+- **Git** — [Download](https://git-scm.com/)
+- A free **[Supabase](https://supabase.com)** account and project
+- A **[Groq](https://console.groq.com)** API key (free tier available)
+- A **[Replicate](https://replicate.com)** API token
 
-## 🎨 Customization
+---
 
-### Change Theme Colors
-Edit `app/globals.css`:
-```css
---color-primary: #a78bfa;      /* Primary purple */
---background: 15 10 26;         /* Dark background */
+## 🔐 Environment Variables
+
+Create a `.env.local` file in the root of your project and populate it with the following keys:
+
+```env
+# ─── Supabase ────────────────────────────────────────────────────────────────
+# Found in: Supabase Dashboard → Settings → API
+NEXT_PUBLIC_SUPABASE_URL=https://<your-project-ref>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-supabase-anon-key>
+
+# ─── Groq (AI Chat & Workout Planner) ────────────────────────────────────────
+# Found in: https://console.groq.com/keys
+GROQ_API_KEY=gsk_<your-groq-api-key>
+
+# ─── Replicate (Body Transformation Visualizer) ──────────────────────────────
+# Found in: https://replicate.com/account/api-tokens
+REPLICATE_API_TOKEN=r8_<your-replicate-token>
+
+# ─── Cron Job Security ───────────────────────────────────────────────────────
+# Generate a random secret string to protect the /api/cron/* endpoints
+CRON_SECRET=<your-random-secret-string>
 ```
 
-### Modify Calorie Goal
-Edit `components/dashboard/diet-summary.tsx`:
-```typescript
-const calorieGoal = 2500; // Your custom goal
+> **⚠️ Security Notice:** Never commit `.env.local` to version control. It is already included in `.gitignore`. When deploying to Vercel, add these as **Environment Variables** in the project settings dashboard.
+
+---
+
+## ⚡ Local Setup / Installation
+
+Follow these steps to get FitMate running on your local machine in under 5 minutes.
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/deykris777/fitmate.git
+cd fitmate
 ```
 
-### Update AI Personality
-Edit `app/api/chat/route.ts`:
-```typescript
-const systemPrompt = `You are...`;
+**2. Install dependencies**
+
+```bash
+pnpm install
+# or
+npm install
 ```
 
-### Add Exercise Routines
-Edit `app/routines/page.tsx`:
-```typescript
-const defaultRoutines = [
-  // Add your routines
-];
+**3. Configure environment variables**
+
+```bash
+cp .env.example .env.local
+# Now open .env.local and fill in your keys (see section above)
 ```
+
+**4. Initialize the database**
+
+In your **Supabase project dashboard**, navigate to the **SQL Editor** and run the contents of:
+
+```
+scripts/init-database.sql
+```
+
+This will create all required tables, indexes, and Row-Level Security policies automatically.
+
+**5. Start the development server**
+
+```bash
+pnpm dev
+# or
+npm run dev
+```
+
+**6. Open the app**
+
+Navigate to [http://localhost:3000](http://localhost:3000) in your browser. Create an account, complete onboarding, and start your fitness journey. 🎉
+
+---
+
+## 🗂️ Project Structure
+
+```
+fitmate/
+│
+├── app/                            # Next.js 15 App Router root
+│   ├── (auth)/                     # Authentication route group
+│   │   ├── login/                  # Login page
+│   │   └── signup/                 # Registration page
+│   ├── onboarding/                 # First-time user profile setup
+│   ├── dashboard/                  # Main authenticated home
+│   ├── workouts/                   # Workout logging & history
+│   ├── diet/                       # Nutrition & calorie tracking
+│   ├── chat/                       # AI fitness chatbot interface
+│   ├── planner/                    # AI weekly workout planner
+│   ├── visualizer/                 # Body transformation visualizer
+│   ├── analytics/                  # Progress charts & dashboards
+│   ├── water/                      # Hydration tracker
+│   │
+│   └── api/                        # Backend API route handlers
+│       ├── chat/route.ts           # Groq streaming chat endpoint
+│       ├── planner/route.ts        # AI plan generation endpoint
+│       ├── visualizer/route.ts     # Replicate image generation
+│       └── cron/
+│           └── reset-water/        # Daily water log reset (cron)
+│
+├── components/                     # Shared React component library
+│   ├── ui/                         # Base Radix/Shadcn primitives
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── dialog.tsx
+│   │   └── ...
+│   ├── dashboard/                  # Dashboard-specific widgets
+│   ├── workout/                    # Workout logging components
+│   ├── chat/                       # Chat UI components
+│   └── layout/                     # Navbar, sidebar, page wrappers
+│
+├── lib/                            # Utilities, clients, and helpers
+│   ├── supabase-client.ts          # Lazy-loaded Supabase proxy client
+│   ├── supabase-server.ts          # Server-side Supabase client
+│   ├── database.ts                 # Typed DB query helpers
+│   ├── auth-context.tsx            # React auth context & hooks
+│   └── utils.ts                    # General utility functions (cn, etc.)
+│
+├── scripts/                        # Database & tooling scripts
+│   └── init-database.sql           # Full Supabase schema migration
+│
+├── public/                         # Static assets
+│   └── icons/                      # App icons and imagery
+│
+├── styles/                         # Global stylesheets
+│   └── globals.css                 # Tailwind base + CSS custom properties
+│
+├── .env.local                      # ⚠️ Local secrets (never commit)
+├── .gitignore
+├── components.json                 # Shadcn/UI configuration
+├── next.config.mjs                 # Next.js configuration
+├── tailwind.config.ts              # Tailwind CSS configuration
+├── tsconfig.json                   # TypeScript configuration
+├── vercel.json                     # Vercel deployment & cron config
+└── package.json
+```
+
+---
+
+## 🗄️ Database Schema
+
+FitMate uses a PostgreSQL database via Supabase. All tables are protected with Row-Level Security (RLS).
+
+| Table | Description |
+|---|---|
+| `user_profiles` | Stores user biometrics, goals, and experience level |
+| `workouts` | Individual workout session logs per user |
+| `diet_logs` | Daily meal and calorie entries per user |
+| `water_logs` | Daily hydration tracking entries per user |
+| `chat_history` | Persisted AI chat conversations per user |
+
+> Run `scripts/init-database.sql` in Supabase SQL Editor to scaffold the full schema.
+
+---
 
 ## 🚀 Deployment
 
-### Deploy to Vercel (Recommended)
+FitMate is optimized for deployment on **Vercel** with zero additional configuration.
 
-1. **Push to GitHub**
-   ```bash
-   git add .
-   git commit -m "Deploy FitMate"
-   git push origin main
-   ```
+**1. Push your code to GitHub**
 
-2. **Connect to Vercel**
-   - Visit https://vercel.com/new
-   - Select your GitHub repo
-   - Add environment variables
-   - Click Deploy
-
-3. **Enable Cron Jobs**
-   - Vercel automatically reads `vercel.json`
-   - Daily diet reset runs at midnight UTC
-
-### Other Deployment Options
-- **Netlify** - Only for frontend (needs API elsewhere)
-- **Railway** - Full stack option
-- **Self-hosted** - Node.js VPS
-
-## 📊 Database Schema
-
-### user_profiles
-```sql
-id (UUID) | email | full_name | height | weight | fitness_goal | experience_level
+```bash
+git add .
+git commit -m "feat: initial deploy"
+git push origin main
 ```
 
-### workouts
-```sql
-id | user_id | exercise_name | date | duration | intensity | calories_burned | sets
-```
+**2. Import your project on Vercel**
 
-### diet_logs
-```sql
-id | user_id | meal_name | calories | date
-```
+- Go to [vercel.com/new](https://vercel.com/new)
+- Select your `fitmate` repository
+- Vercel will auto-detect Next.js settings
 
-### exercise_routines
-```sql
-id | name | description | level | exercises (JSONB)
-```
+**3. Add Environment Variables**
 
-### chat_history
-```sql
-id | user_id | message | response | created_at
-```
+In the Vercel project settings, add all keys from your `.env.local` (see [Environment Variables](#-environment-variables) section).
 
-## 🔐 Security Features
+**4. Deploy**
 
-- ✅ **JWT Authentication** - Secure user sessions
-- ✅ **Row Level Security** - Database-level isolation
-- ✅ **HTTPS Only** - Encrypted connections
-- ✅ **Input Validation** - Server-side validation
-- ✅ **SQL Parameterization** - Prevents injection
-- ✅ **Cron Secret** - Protected endpoint
-- ✅ **Password Hashing** - Bcrypt via Supabase
+Click **Deploy**. Vercel will build and deploy your app. Cron jobs defined in `vercel.json` (e.g., the daily water log reset) will activate automatically on Vercel's infrastructure.
 
-## 🐛 Troubleshooting
-
-### Database Connection Issues
-```
-✅ Check Supabase credentials in .env.local
-✅ Verify Supabase project is active
-✅ Test connection with simple query
-```
-
-### AI Chat Not Working
-```
-✅ Check internet connection
-✅ Verify OpenAI API is accessible
-✅ Check browser console for errors
-```
-
-### Styling Issues
-```
-✅ Clear Next.js cache: rm -rf .next
-✅ Clear browser cache
-✅ Restart dev server
-```
-
-### Authentication Problems
-```
-✅ Clear browser cookies
-✅ Check email is verified in Supabase
-✅ Verify SUPABASE_ANON_KEY is correct
-```
-
-## 📈 Performance
-
-- **Fast Initial Load** - Server-side rendering
-- **Optimized Images** - Next.js image optimization
-- **Streaming Responses** - Real-time AI chat
-- **Database Indexing** - Efficient queries
-- **Code Splitting** - Minimal JS bundles
+---
 
 ## 🤝 Contributing
 
-Want to improve FitMate? Here are ideas:
-- Add strength progression tracking
-- Create social leaderboards
-- Add wearable device integration
-- Build mobile app (React Native)
-- Add video tutorials for exercises
-- Create nutrition database
-- Add water intake tracking
-- Implement friend challenges
+Contributions are welcome and appreciated! Here's how to get started:
 
-## 📝 License
+1. **Fork** the repository
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and write clean, typed TypeScript
+4. Commit with a descriptive message: `git commit -m "feat: add [feature]"`
+5. Push to your branch: `git push origin feature/your-feature-name`
+6. Open a **Pull Request** against `main`
 
-This project is open source. Feel free to use and modify!
-
-## 🙋 Support
-
-- 📚 Check documentation files
-- 🔍 Review code comments
-- 💬 Open an issue on GitHub
-- 📧 Contact project creator
-
-## 🎉 Getting Started Now
-
-1. Run `npm install`
-2. Copy `.env.example` to `.env.local`
-3. Add Supabase credentials
-4. Run database migration
-5. Run `npm run dev`
-6. Visit http://localhost:3000
-7. Sign up and start your fitness journey!
+Please open an [issue](https://github.com/deykris777/fitmate/issues) first for major changes to discuss the approach.
 
 ---
 
-## 📱 Features at a Glance
+## 📄 License
 
-| Feature | Desktop | Mobile | AI | Secure |
-|---------|---------|--------|----|----|
-| Workouts | ✅ | ✅ | - | ✅ |
-| Diet | ✅ | ✅ | - | ✅ |
-| Routines | ✅ | ✅ | - | ✅ |
-| Chat | ✅ | ✅ | ✅ | ✅ |
-| Analytics | ✅ | ✅ | - | ✅ |
-| Auth | ✅ | ✅ | - | ✅ |
-
-## 🌟 Why FitMate?
-
-- **Complete Solution** - Everything you need for fitness
-- **AI Powered** - Get real-time coaching advice
-- **Beautiful Design** - Dark purple theme with smooth animations
-- **Privacy First** - Your data is yours alone
-- **Free to Start** - No credit card needed
-- **Production Ready** - Built with best practices
+This project is licensed under the **MIT License** — you are free to use, modify, and distribute it. See [`LICENSE`](LICENSE) for details.
 
 ---
 
-**Start your fitness transformation with FitMate today! 💪**
+<div align="center">
 
-[Get Started](./QUICKSTART.md) | [Full Setup Guide](./SETUP.md) | [Technical Details](./PROJECT_SUMMARY.md)
+Built with 💜 by the **FitMate Team**
+
+<br/>
+
+| 👤 Name | 🔗 GitHub |
+|---|---|
+| Krishna Dey | [@deykris777](https://github.com/deykris777) |
+| Ayush Raj | [@Ayushraj240](https://github.com/Ayushraj240) |
+| Hari Suryansh Singh | [@HariSuryansh](https://github.com/HariSuryansh) |
+| Shivanand Giri | [@Girvan08](https://github.com/Girvan08) |
+| Arpit Vishwakarma | [@arpitvishwa23](https://github.com/arpitvishwa23) |
+| Prabuddha Kumar Singh | [@prabuddha7](https://github.com/prabuddha7) |
+
+<br/>
+
+*If FitMate helped you, consider giving it a ⭐ on GitHub — it means a lot!*
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,50:7c3aed,100:0f172a&height=100&section=footer" width="100%" />
+
+</div>
