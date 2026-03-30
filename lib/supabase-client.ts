@@ -11,7 +11,13 @@ export function getSupabaseClient(): SupabaseClient {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     if (!supabaseUrl || !supabaseKey) {
-      throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY');
+      console.error(
+        '[FitMate] CRITICAL: Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY. ' +
+        'Please add these environment variables to your Vercel project settings and redeploy.'
+      );
+      // Return a dummy client that won't crash the app on import
+      // All actual calls will fail gracefully with network errors
+      return createClient('https://placeholder.supabase.co', 'placeholder-key') as SupabaseClient;
     }
     _supabase = createClient(supabaseUrl, supabaseKey);
   }
